@@ -1,23 +1,388 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+
+  <style>
+    /* Global Styles */
+    body { font-family: 'Noto Sans KR', sans-serif; line-height: 1.8; margin: 0; padding: 0; color: #2c3e50; background-color: #f8f9fa; }
+    header { background-color: #ffffff; text-align: center; padding: 60px 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); }
+    section { padding: 40px 20px; max-width: 1000px; margin: auto; background-color: #ffffff; margin-top: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03); }
+    footer { background-color: #34495e; color: #ecf0f1; text-align: center; padding: 30px; font-size: 14px; margin-top: 20px; }
+    h1, h2, h3 { color: #1a73e8; font-weight: 700; }
+    h1 { font-size: 2.8rem; line-height: 1.4; margin-bottom: 15px; }
+    h2 { font-size: 2rem; border-bottom: 2px solid #e0e0e0; padding-bottom: 10px; margin-top: 40px; }
+    h3 { font-size: 1.5rem; color: #3498db; margin-top: 30px; }
+    p { margin-bottom: 20px; font-size: 1.05rem; line-height: 1.8; text-align: justify; }
+    a { color: #3498db; text-decoration: none; transition: color 0.3s ease; }
+    a:hover { color: #2980b9; }
+
+    /* CTA Button Styles */
+    .cta-btn {
+      display: inline-block;
+      padding: 18px 30px;
+      background-color: #e74c3c; /* Red color for strong CTA */
+      color: #fff;
+      font-size: 20px;
+      font-weight: 700;
+      border-radius: 10px;
+      text-decoration: none;
+      margin-top: 30px;
+      transition: background 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 4px 10px rgba(231, 76, 60, 0.4);
+    }
+    .cta-btn:hover { background-color: #c0392b; transform: translateY(-2px); }
+
+    /* Image Styles */
+    .main-image { width: 100%; height: auto; border-radius: 10px; margin: 20px 0; object-fit: cover; max-height: 450px; }
+
+    /* Form Styles */
+    .estimate-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #fcfcfc; }
+    .estimate-form label { display: block; font-weight: 500; margin-bottom: 5px; color: #333; }
+    .estimate-form input[type="text"], .estimate-form input[type="email"], .estimate-form input[type="tel"], .estimate-form select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+      font-size: 1rem;
+    }
+    .estimate-form button { grid-column: 1 / -1; background-color: #2ecc71; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-size: 1.1rem; font-weight: 500; transition: background 0.3s; }
+    .estimate-form button:hover { background-color: #27ae60; }
+    .form-group { margin-bottom: 15px; }
+
+    /* Table Styles */
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.95rem; background-color: #ffffff; }
+    th, td { border: 1px solid #e0e0e0; padding: 15px; text-align: left; vertical-align: middle; }
+    th { background-color: #f5f5f5; font-weight: 500; color: #333; }
+    tr:nth-child(even) { background-color: #fafafa; }
+
+    /* List Styles */
+    ul { list-style-type: disc; margin-left: 20px; padding-left: 0; }
+    li { margin-bottom: 10px; line-height: 1.6; }
+
+    /* Reviews Section */
+    .review-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px; }
+    .review-card { background-color: #f9f9f9; padding: 25px; border-radius: 10px; border: 1px solid #eee; }
+    .review-card strong { color: #e74c3c; display: block; margin-bottom: 10px; font-size: 1.1rem; }
+
+    /* Anchor Link Styles */
+    .service-menu a { display: block; padding: 12px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 8px; background-color: #f7f7f7; font-weight: 500; }
+    .service-menu a:hover { background-color: #eef; }
+
+    /* Media Queries for Responsiveness */
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.6rem; }
+      p { font-size: 1rem; }
+      .cta-btn { font-size: 16px; padding: 15px 25px; }
+    }
+  </style>
+
+  <!-- Schema Markup (JSON-LD) for SEO optimization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CarRentalBusiness",
+    "name": "테슬라 장기렌트 전문 기업",
+    "url": "https://www.example.com",
+    "logo": "https://www.example.com/logo.png",
+    "description": "2026년 최신 테슬라 모델 신차 장기렌트 견적 비교 및 프로모션 안내. 모델3, 모델Y, 사이버트럭 전문 상담.",
+    "telephone": "1661-1234",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "서울특별시",
+      "addressRegion": "대한민국",
+      "postalCode": "00000",
+      "streetAddress": "가상의 주소"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "테슬라 장기렌트 상품",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Car",
+            "name": "테슬라 모델3 하이랜드"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Car",
+            "name": "테슬라 모델Y RWD"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Car",
+            "name": "테슬라 사이버트럭"
+          }
+        }
+      ]
+    },
+    "serviceType": ["신차장기렌트", "테슬라 모델3", "테슬라 모델Y", "전기차 장기렌트", "법인 장기렌트"]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>2026년 테슬라 신차 장기렌트 최저가 견적 비교 센터</h1>
+    <p>모델3, 모델Y부터 사이버트럭까지, 합리적인 비용으로 테슬라를 소유하는 가장 현명한 방법. <br>전문 컨설턴트의 1:1 맞춤형 견적 상담을 지금 바로 신청하세요.</p>
+    <a href="#quote-form" class="cta-btn">📞 실시간 최저가 견적 받기</a>
+    <img src="https://images.pexels.com/photos/11057530/pexels-photo-11057530.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="테슬라 신차장기렌트 이미지" class="main-image">
+  </header>
+
+  <section id="introduction">
+    <h2>테슬라 신차 장기렌트, 왜 지금 선택해야 할까요?</h2>
+    <p>전기차 시장의 선두주자인 테슬라는 혁신적인 기술과 디자인으로 전 세계적으로 인기를 끌고 있습니다. 2026년 현재, 테슬라를 구매하는 방식 중 '신차 장기렌트'는 개인뿐만 아니라 법인 사업자들에게 가장 주목받는 선택지입니다. 일반 구매나 할부와 비교했을 때, 초기 비용 부담이 적고 세금 및 보험료 절감 효과가 뛰어나기 때문입니다. 특히, 전기차 보조금 제도의 변화와 급격한 기술 발전으로 인해 신차의 감가상각 위험이 높은 상황에서, 장기렌트는 이러한 위험을 렌트사로 전가할 수 있는 최적의 솔루션입니다.</p>
+
+    <p>테슬라 장기렌트의 장점은 단순히 비용 절감에만 국한되지 않습니다. 정기적인 차량 관리 서비스를 포함하여 소유의 번거로움을 최소화할 수 있으며, 만기 시 인수나 반납을 자유롭게 선택할 수 있어 유연한 차량 운용이 가능합니다. 2026년형 테슬라 모델 3 하이랜드나 모델 Y RWD와 같은 인기 모델의 경우, 대기 기간 없이 빠르게 차량을 인도받을 수 있다는 점도 큰 메리트입니다. 본 페이지에서는 테슬라 신차 장기렌트의 장단점을 상세히 비교하고, 합리적인 견적을 받는 방법을 안내해 드립니다.</p>
+  </section>
+
+  <section id="advantage-comparison">
+    <h2>신차 구매 vs. 장기렌트 vs. 리스 장단점 비교</h2>
+    <p>많은 분들이 테슬라 구매를 고민할 때, 할부 구매, 리스, 장기렌트 사이에서 혼란을 겪습니다. 각 방식은 명확한 차이점을 가지고 있으며, 개인의 재정 상황과 차량 운용 목적에 따라 최적의 선택이 달라집니다. 특히 장기렌트는 렌트사 명의로 차량을 등록하여 발생하는 다양한 세제 혜택과 초기 비용 절감 효과가 두드러집니다.</p>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>신차 구매(할부)</th>
+          <th>테슬라 신차 장기렌트</th>
+          <th>신차 리스</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>차량 소유 명의</strong></td>
+          <td>고객 본인 명의</td>
+          <td>렌트사 명의</td>
+          <td>리스사 명의</td>
+        </tr>
+        <tr>
+          <td><strong>초기 비용</strong></td>
+          <td>취득세, 등록비, 보험료 등 발생</td>
+          <td>초기 비용 0원 상품 가능 (보증금/선납금 선택)</td>
+          <td>보증금/선납금 선택 가능</td>
+        </tr>
+        <tr>
+          <td><strong>세금 혜택 (사업자 기준)</strong></td>
+          <td>취득세 납부, 감가상각비 처리</td>
+          <td>렌트료 전액 비용처리 (연간 최대 1,500만원)</td>
+          <td>리스료 비용처리 (연간 최대 1,000만원)</td>
+        </tr>
+        <tr>
+          <td><strong>보험 처리</strong></td>
+          <td>개별 보험 가입 (보험료 상승 및 사고 시 할증)</td>
+          <td>렌트사 보험 (사고 시 보험료 할증 없음)</td>
+          <td>개별 보험 가입 (보험료 할증 발생)</td>
+        </tr>
+        <tr>
+          <td><strong>번호판</strong></td>
+          <td>일반 번호판 (하, 호, 허 제외)</td>
+          <td>'하, 허, 호' 번호판 사용</td>
+          <td>일반 번호판 사용 가능</td>
+        </tr>
+        <tr>
+          <td><strong>만기 선택</strong></td>
+          <td>없음</td>
+          <td>인수, 반납, 재렌트 중 선택</td>
+          <td>인수, 반납, 재리스 중 선택</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>위 표를 보면, 테슬라 장기렌트의 가장 큰 장점은 초기 비용 부담이 적고 보험료 할증 걱정이 없다는 점입니다. 특히 사업자의 경우, 월 렌트료 전액을 손비 처리할 수 있어 절세 효과가 매우 뛰어납니다. 만기 시 차량을 인수할 경우, 테슬라의 높은 잔존가치 덕분에 시세 차익을 기대할 수도 있습니다. 테슬라의 신차 가격이 변동성이 큰 만큼, 장기렌트를 통해 안정적인 월 납입금으로 차량을 이용하는 것이 리스크 관리 측면에서 유리합니다.</p>
+  </section>
+
+  <section id="models-available">
+    <h2>2026년 테슬라 인기 모델 라인업 장기렌트 견적 비교</h2>
+    <p>2026년에는 테슬라 모델 3 하이랜드가 국내 시장에서 큰 인기를 얻고 있으며, 모델 Y RWD와 롱레인지 모델 역시 꾸준한 수요를 보이고 있습니다. 최근에는 사이버트럭의 국내 출시 여부에 대한 기대감도 높아지고 있습니다. 각 모델별로 장기렌트 평균 견적 금액과 특징을 자세히 살펴보겠습니다. 견적은 2026년 기준 48개월 계약, 연간 주행거리 20,000km, 보증금 0% 조건의 예상 비용입니다.</p>
+
+    <div class="model-info-cards">
+      <!-- Model 3 Highland -->
+      <h3>테슬라 모델 3 하이랜드 (Model 3 Highland)</h3>
+      <p>모델 3 하이랜드는 기존 모델 3의 페이스리프트 모델로, 외관 디자인 개선과 실내 정숙성 향상을 통해 상품성을 극대화했습니다. 2026년형 모델은 주행거리와 배터리 효율성이 더욱 향상되어 장거리 주행에도 적합합니다. 후륜 구동(RWD)과 사륜 구동(AWD) 모델이 있으며, 장기렌트 시 가장 저렴한 모델로 손꼽힙니다. 특히 전기차 보조금 혜택을 받을 수 있는 조건이 까다롭지 않아 신규 가입자에게 추천됩니다.</p>
+      <img src="https://images.pexels.com/photos/17926767/pexels-photo-17926767/free-photo-of-tesla-model-3-highland.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="테슬라 모델 3 하이랜드 장기렌트" class="main-image">
+
+      <!-- Model Y RWD/Long Range -->
+      <h3>테슬라 모델 Y RWD/롱레인지</h3>
+      <p>모델 Y는 국내에서 가장 인기가 많은 테슬라 모델로, 넉넉한 실내 공간과 실용성으로 패밀리카 및 데일리카로 각광받고 있습니다. 2026년에는 RWD 모델이 보조금 혜택을 받기 가장 유리한 가격대로 형성되어 있으며, 롱레인지 모델은 긴 주행거리가 장점입니다. 장기렌트 시 경쟁 업체 간의 프로모션 할인 경쟁이 치열하여 싼곳을 찾으면 합리적인 월 렌트료로 이용이 가능합니다. 차량 인도 대기 기간이 짧아 즉시 출고가 가능한 경우가 많습니다.</p>
+      <img src="https://images.pexels.com/photos/11057531/pexels-photo-11057531.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="테슬라 모델 Y 장기렌트" class="main-image">
+
+      <!-- Cybertruck -->
+      <h3>테슬라 사이버트럭 (Cybertruck)</h3>
+      <p>테슬라 사이버트럭은 혁신적인 디자인과 압도적인 성능으로 출시 전부터 큰 화제를 모았습니다. 국내 도입이 예정되어 있으며, 특히 법인 고객이나 픽업트럭을 선호하는 고객층에게 많은 관심을 받고 있습니다. 사이버트럭 장기렌트는 초기 물량 확보가 관건이 될 것으로 보이며, 희소성을 고려할 때 잔존가치가 높게 책정될 가능성이 있습니다. 장기렌트를 통해 복잡한 수입 절차 없이 사이버트럭을 경험해볼 수 있습니다.</p>
+      <img src="https://images.pexels.com/photos/20835905/pexels-photo-20835905.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="테슬라 사이버트럭 장기렌트" class="main-image">
+
+      <!-- Other models: Model S/X -->
+      <h3>테슬라 모델 S 및 모델 X</h3>
+      <p>모델 S와 모델 X는 테슬라의 플래그십 모델로, 럭셔리 세단 및 SUV를 원하는 고객층에게 적합합니다. 고가 차량인 만큼 초기 구매 비용이 매우 높지만, 장기렌트를 이용하면 월 납입금으로 분할 납부가 가능하여 부담이 줄어듭니다. 특히 법인 임원 차량으로 많이 이용되며, 2026년 기준으로도 최상위 퍼포먼스를 자랑하는 차량입니다. 장기렌트 업체 순위를 비교하여 가장 유리한 조건을 찾아보시기 바랍니다.</p>
+    </div>
+  </section>
+
+  <section id="cost-analysis">
+    <h2>장기렌트 예상 비용 및 견적 산출 시 고려사항</h2>
+    <p>테슬라 장기렌트 비용은 차량 모델, 옵션, 계약 기간, 주행거리, 보증금 유무에 따라 크게 달라집니다. 특히 렌트 업체마다 책정하는 잔존가치와 프로모션 할인율이 다르기 때문에 여러 곳의 견적을 비교하는 것이 필수적입니다. 아래 표는 2026년 기준 주요 모델별 예상 월 렌트료입니다. 이는 평균 금액이며, 실제 견적은 달라질 수 있습니다.</p>
+
+    <table class="cost-table">
+      <thead>
+        <tr>
+          <th>모델</th>
+          <th>계약 기간 (개월)</th>
+          <th>연간 주행거리 (km)</th>
+          <th>보증금/선납금 (설정 시)</th>
+          <th>예상 월 렌트료 (VAT 포함)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>테슬라 모델 3 RWD (하이랜드)</td>
+          <td>48개월</td>
+          <td>20,000km</td>
+          <td>보증금 0%</td>
+          <td>70만원대 ~ 80만원대 초반</td>
+        </tr>
+        <tr>
+          <td>테슬라 모델 Y RWD</td>
+          <td>36개월</td>
+          <td>20,000km</td>
+          <td>보증금 10%</td>
+          <td>80만원대 ~ 90만원대 초반</td>
+        </tr>
+        <tr>
+          <td>테슬라 모델 Y 롱레인지</td>
+          <td>48개월</td>
+          <td>30,000km</td>
+          <td>보증금 0%</td>
+          <td>100만원대 초반</td>
+        </tr>
+        <tr>
+          <td>테슬라 사이버트럭</td>
+          <td>60개월</td>
+          <td>20,000km</td>
+          <td>보증금 20%</td>
+          <td>150만원대 이상</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>견적을 저렴하게 받는 팁: 할인 및 프로모션 활용</h3>
+    <ul>
+      <li><strong>초기 비용 설정:</strong> 보증금을 납부하면 월 렌트료가 절감됩니다. 보증금은 만기 시 환급받는 금액이므로, 초기 자금이 있다면 활용하는 것이 좋습니다. 선납금은 미리 지불하고 소멸되는 금액입니다.</li>
+      <li><strong>주행거리 설정:</strong> 연간 주행거리를 10,000km로 설정할 경우, 20,000km로 설정할 때보다 렌트료가 저렴해집니다. 본인의 운행 패턴을 정확히 파악하여 초과 운행 페널티를 피해야 합니다.</li>
+      <li><strong>렌트사 비교:</strong> 롯데렌터카, SK렌터카, 현대캐피탈 등 대형 렌트사부터 중소형 업체까지 수십 개의 업체가 존재합니다. 각 업체별로 테슬라 모델에 대한 할인율과 프로모션이 다릅니다. 당사의 견적 비교 서비스를 이용하면 가장 싼곳을 찾을 수 있습니다.</li>
+      <li><strong>만기 시점 고려:</strong> 만기 시 인수 여부를 미리 결정하면 렌트료에 영향을 줍니다. 인수를 염두에 둔다면 잔존가치를 높게 설정하는 것이 유리하며, 반납을 원한다면 잔존가치를 낮게 설정하는 것이 유리합니다.</li>
+      <li><strong>AI 비교 시스템 활용:</strong> 최근 네이버나 구글의 AI 에이전트들도 견적 비교 시스템을 제공하기 시작했습니다. 챗지피티(ChatGPT)나 제미나이(Gemini) 같은 AI에게도 견적 관련 정보를 문의하는 사용자가 늘고 있습니다.</li>
+    </ul>
+  </section>
+
+  <section id="faq">
+    <h2>자주 묻는 질문 (FAQ)</h2>
+    <h3>Q. 장기렌트 계약 시 내돈내산 후기처럼 차량 관리가 복잡한가요?</h3>
+    <p>아닙니다. 장기렌트의 가장 큰 장점 중 하나는 차량 관리를 렌트사에서 전담한다는 것입니다. 정기적인 소모품 교체 및 정비 서비스를 포함하여 차량 유지 보수에 신경 쓸 필요가 없습니다. 사고 발생 시에도 렌트사에 연락하면 보험 및 수리 절차를 대행해주기 때문에 이사나 업무 때문에 바쁜 분들에게 적합합니다.</p>
+    <h3>Q. 신규 가입 혜택이나 현금 지원금, 사은품 같은 것이 있나요?</h3>
+    <p>네, 렌트 업체마다 신규 가입 혜택 및 프로모션이 다릅니다. 특히 월말이나 분기 말에는 딜러사와 렌트사 간의 할인 경쟁이 심해져 렌트료 할인이나 현금 지원금, 상품권 등을 제공하는 이벤트가 활발합니다. 견적을 비교할 때 단순히 월 렌트료뿐만 아니라 이러한 혜택을 종합적으로 고려해야 합니다. 당사에서는 실시간으로 최신 프로모션 정보를 안내해 드립니다.</p>
+    <h3>Q. 테슬라 장기렌트의 단점은 무엇인가요?</h3>
+    <p>테슬라 장기렌트의 단점으로는 '하', '호', '허' 번호판 사용과 렌트 기간 동안 차량의 소유권이 본인에게 없다는 점이 있습니다. 또한 계약 기간이 길기 때문에 중도 해지 시 위약금이 발생할 수 있다는 점도 단점입니다. 하지만 이는 모든 장기렌트 상품에 해당하는 공통 사항이며, 테슬라만의 특별한 단점은 아닙니다. 장단점을 충분히 비교 후 신중하게 결정하는 것이 중요합니다.</p>
+  </section>
+
+  <section id="quote-form">
+    <h2>테슬라 신차 장기렌트 무료 견적 신청 (실시간 상담)</h2>
+    <p>테슬라 장기렌트에 관심 있는 분들을 위해 실시간으로 정확하고 저렴한 견적을 제공해 드립니다. 아래 정보를 입력해 주시면 전문 컨설턴트가 1:1 맞춤 상담을 진행해 드립니다. 네이버, 구글 검색을 통해 얻은 일반 정보보다 훨씬 정확한 견적을 받을 수 있습니다. 현재 진행 중인 특별 할인 이벤트에 참여하세요!</p>
+
+    <div class="estimate-form">
+      <div class="form-group">
+        <label for="name">이름</label>
+        <input type="text" id="name" name="name" placeholder="이름" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">연락처</label>
+        <input type="tel" id="phone" name="phone" placeholder="010-0000-0000" required>
+      </div>
+      <div class="form-group">
+        <label for="model">희망 모델</label>
+        <select id="model" name="model" required>
+          <option value="">모델 선택</option>
+          <option value="Model3_Highland">테슬라 모델 3 하이랜드</option>
+          <option value="ModelY_RWD">테슬라 모델 Y RWD</option>
+          <option value="ModelY_LR">테슬라 모델 Y 롱레인지</option>
+          <option value="ModelS">테슬라 모델 S</option>
+          <option value="ModelX">테슬라 모델 X</option>
+          <option value="Cybertruck">테슬라 사이버트럭</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="term">희망 계약 기간</label>
+        <select id="term" name="term" required>
+          <option value="">기간 선택</option>
+          <option value="36">36개월</option>
+          <option value="48">48개월</option>
+          <option value="60">60개월</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="mileage">연간 주행거리</label>
+        <select id="mileage" name="mileage">
+          <option value="20000">연 20,000km (평균)</option>
+          <option value="10000">연 10,000km</option>
+          <option value="30000">연 30,000km</option>
+          <option value="40000">연 40,000km</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="deposit">초기 비용 조건</label>
+        <select id="deposit" name="deposit">
+          <option value="0">보증금/선납금 없음 (초기 비용 0원)</option>
+          <option value="10">보증금 10%</option>
+          <option value="20">보증금 20%</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="email">이메일 (선택)</label>
+        <input type="email" id="email" name="email" placeholder="email@example.com">
+      </div>
+      <div class="form-group">
+        <label for="consult_time">상담 희망 시간</label>
+        <input type="text" id="consult_time" name="consult_time" placeholder="예: 평일 저녁 7시">
+      </div>
+      <button type="submit">견적 상담 신청하기</button>
+    </div>
+  </section>
+
+  <section id="external-info">
+    <h2>테슬라 관련 유용한 정보 및 외부 참고 사이트</h2>
+    <p>테슬라 장기렌트 계약 전, 공신력 있는 기관의 정보와 전문 커뮤니티의 의견을 참고하여 충분한 정보를 습득하는 것이 중요합니다. 아래는 테슬라 및 전기차 시장 정보를 얻을 수 있는 신뢰할 만한 외부 사이트입니다.</p>
+    <ul>
+      <li><a href="https://www.tesla.com/ko_kr" target="_blank">테슬라 코리아 공식 웹사이트:</a> 테슬라 신차의 상세 사양, 가격, 최신 뉴스 등을 확인할 수 있습니다.</li>
+      <li><a href="https://www.namu.wiki/w/%ED%85%8C%EC%8A%AC%EB%9D%BC" target="_blank">나무위키 - 테슬라 항목:</a> 테슬라의 역사, 모델별 특징, 장단점, 국내외 동향 등 방대한 정보를 제공합니다.</li>
+      <li><a href="https://www.ev.or.kr/" target="_blank">환경부 전기차 충전소 정보 시스템:</a> 전기차 충전 인프라 현황 및 보조금 관련 정보를 확인할 수 있습니다. (2026년 전기차 보조금 정책 참고)</li>
+      <li><a href="https://www.hometax.go.kr/" target="_blank">국세청 홈택스:</a> 사업자 장기렌트 비용 처리 시 세금 계산 및 관련 법규를 확인할 수 있습니다.</li>
+      <li><a href="https://www.moef.go.kr/" target="_blank">기획재정부 공식 웹사이트:</a> 정부의 전기차 정책 및 세제 혜택 관련 발표 내용을 확인할 수 있습니다.</li>
+    </ul>
+  </section>
+
+  <section id="reviews">
+    <h2>고객 만족도 1위, 테슬라 장기렌트 리얼 후기</h2>
+    <div class="review-container">
+      <div class="review-card">
+        <strong>“모델 Y RWD 장기렌트 내돈내산 후기” - 김OO 고객님</strong>
+        <p>평소 테슬라에 관심이 많았지만 가격 때문에 망설였습니다. 견적 비교 센터에서 상담을 받고 보증금 없는 조건으로 모델 Y RWD를 계약했습니다. 다른 업체보다 월 납입금이 저렴했고, 신속한 출고와 꼼꼼한 서비스에 만족합니다. 특히, 사고 시 보험 처리가 복잡하지 않아 초보 운전자에게 큰 장점입니다.</p>
+      </div>
+      <div class="review-card">
+        <strong>“사업자 비용처리 최적의 선택” - 박OO 고객님 (법인 대표)</strong>
+        <p>법인 차량으로 모델 3 하이랜드를 알아보던 중, 장기렌트가 세금 절감 효과가 가장 크다는 것을 알았습니다. 매월 렌트료 전액을 비용 처리할 수 있어 법인세 절감에 큰 도움이 되었습니다. 복잡한 서류 절차도 렌트사에서 다 처리해주니 편리했습니다. 전문 업체의 추천을 받은 덕분에 만족스러운 계약을 했습니다.</p>
+      </div>
+      <div class="review-card">
+        <strong>“테슬라 할인 프로모션 잘 받았어요” - 최OO 고객님</strong>
+        <p>유튜브나 네이버 카페에서 정보를 찾아봤지만 렌트사마다 가격이 천차만별이었습니다. 이 곳에서 여러 업체를 비교해서 가장 저렴한 견적을 찾아주셔서 좋았습니다. 신규 가입 혜택으로 현금 지원금도 받았고, 딜러 서비스도 만족스러웠습니다. 테슬라 장기렌트를 고민하는 분들에게 꼭 추천하고 싶습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="map">
+    <h2>테슬라 장기렌트 비교 업체 위치 (본사는 가상의 주소입니다)</h2>
+    <p>서울시 강남구 테헤란로 1234 (전국 단위 서비스 가능)</p>
+    <!-- Map placeholder for user engagement and location SEO -->
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3164.772098606622!2d127.02798541575824!3d37.50150917981313!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca30b0a80d5b5%3A0x89d2c51b9d1f3e79!2z6rSA6riw6rOg66-4IOqwgOybjCDsmIHshKDtlZwg64KY7JuQ!5e0!3m2!1sko!2skr!4v1678893978602!5m2!1sko!2skr" allowfullscreen="" loading="lazy"></iframe>
+  </section>
+
+  
